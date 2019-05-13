@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <!-- RADIO BUTTONS -->
+    <div class="form-group">
+        <span *ngFor="let title of titles">           
+            <span>
+                <input type="radio" name="radiogroup" 
+                    [checked]="idx === 0" 
+                    [value]="title.id" 
+                    (change)="onSelectionChange(title)">
+            </span>
+            <span class="title-radio-label">{{ title.description }}</span>
+        </span>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-4 form-group">
+      <label for="firstName">First Name</label>
+      <div>
+        <input name="firstName" id="firstName" type="text" class="form-control" placeholder="First Name" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="lastName">Last Name</label>
+      <div>
+        <input name="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="dob">Date Of Birth</label>
+      <div>
+        <input name="dob" id="dob" type="date" class="form-control" placeholder="Date Of Birth" required ngModel></div>
+    </div>
+  </div>
+</div>

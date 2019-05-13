@@ -1,3 +1,36 @@
-<p>
-  registration-details works!
-</p>
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #RegistrationForm="ngForm">
+    <div class="row">
+      <div class="col-sm-6 form-group">
+         <label class="control-label" [ngClass]="{'required': accountType.errors?.required}" for="accountType">Account Type</label>
+        <select class="form-control" id="accountType" required   [(ngModel)]="selectedAccountType" name="accountType"
+          #accountType="ngModel">
+          <option *ngFor="let accType of accountTypes" [value]="accType">{{accType}}</option>
+        </select>
+        <!-- <div *ngIf="accountType.errors?.required"> 
+            Name required. 
+        </div> -->
+      </div>
+      <div class="col-sm-6 form-group"> 
+        <label  class="control-label" for="individualCount" [ngClass]="{'required': individualCount.errors?.required}">Number of Individuals</label>
+        <select class="form-control" id="individualCount" (ngModelChange)="updateIndividualCountChange($event)" required [(ngModel)]="selectedindividualCount"
+         name="individualCount"
+          #individualCount="ngModel">
+          <option *ngFor="let indCount of individualsCount" [value]="indCount">{{indCount}}</option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="displayAssociatedIndividuals()">
+        <ng-container *ngFor="let accounts of availableAssociatedAccounts">
+            <IPS-associated-individuals></IPS-associated-individuals>
+        </ng-container>      
+    </div>
+    <div *ngIf="selectedAccountType === accountTypes[0] && selectedindividualCount > 0"> {{selectedindividualCount}}
+      <IPS-personal-account-details></IPS-personal-account-details>
+    </div>
+    <div *ngIf="selectedAccountType === accountTypes[1] && selectedindividualCount >0">
+      <IPS-corporate-account-details></IPS-corporate-account-details>
+    </div>
+  </form>
+  
+</div>

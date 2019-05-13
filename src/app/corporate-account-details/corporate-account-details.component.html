@@ -1,0 +1,48 @@
+<div class="container corporateDetailsContainer">
+  <div class="row">
+    <div class="col-sm-6 form-group">
+      <label for="accountName">Account Name</label>
+      <div>
+        <input name="accountName" id="accountName" type="text" class="form-control" placeholder="" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-6 form-group">
+      <label for="companyName">Company Name</label>
+      <div>
+        <input name="companyName" id="acompanyName" type="text" class="form-control" placeholder="" required ngModel>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-4 form-group">
+      <label for="abnNNo">ABN</label>
+      <div>
+        <input name="abnNNo" id="abnNNo" type="text" class="form-control" placeholder="" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="bankAccountNo">Bank Account Number</label>
+      <div>
+        <input name="bankAccountNo" id="bankAccountNo" type="text" class="form-control" placeholder="" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="bankAccountBSB">Bank Account BSB</label>
+      <div>
+        <input name="bankAccountBSB" id="bankAccountBSB" type="text" class="form-control" placeholder="" required
+          ngModel>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12 form-group"> 
+          <label  class="control-label" for="individualCount" [ngClass]="{'required': individualCount.errors?.required}">Number of Individuals</label>
+          <select class="form-control" id="individualCount" (ngModelChange)="updateIndividualCountChange($event)" required [(ngModel)]="selectedindividualCount"
+           name="individualCount"
+            #individualCount="ngModel">
+            <option *ngFor="let indCount of individualsCount" [value]="indCount">{{indCount}}</option>
+          </select>
+        </div>
+  </div>
+</div>
