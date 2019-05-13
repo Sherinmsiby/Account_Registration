@@ -1,53 +1,82 @@
-<div class="container corporateDetailsContainer">
-  <div class="row">
-    <div class="col-sm-6 form-group">
-      <label for="accountName">Account Name</label>
-      <div>
-        <input name="accountName" id="accountName" type="text" class="form-control" placeholder="" required ngModel>
-      </div>
-    </div>
-    <div class="col-sm-6 form-group">
-      <label for="companyName">Company Name</label>
-      <div>
-        <input name="companyName" id="acompanyName" type="text" class="form-control" placeholder="" required ngModel>
-      </div>
-    </div>
 
-  </div>
-  <div class="row">
-    <div class="col-sm-4 form-group">
-      <label for="abnNNo">ABN</label>
-      <div>
-        <input name="abnNNo" id="abnNNo" type="text" class="form-control" placeholder="" required ngModel>
-      </div>
-    </div>
-    <div class="col-sm-4 form-group">
-      <label for="bankAccountNo">Bank Account Number</label>
-      <div>
-        <input name="bankAccountNo" id="bankAccountNo" type="text" class="form-control" placeholder="" required ngModel>
-      </div>
-    </div>
-    <div class="col-sm-4 form-group">
-      <label for="bankAccountBSB">Bank Account BSB</label>
-      <div>
-        <input name="bankAccountBSB" id="bankAccountBSB" type="text" class="form-control" placeholder="" required
-          ngModel>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-      <div class="col-sm-12 form-group"> 
-          <label  class="control-label" for="companyOfficersCount">Number of Individuals</label>
-          <select class="form-control" id="companyOfficersCount" (ngModelChange)="updateCompanyOfficersCountChange($event)" required [(ngModel)]="selectedCompanyOfficersCount"
-           name="companyOfficersCount"
-            #companyOfficersCount="ngModel">
-            <option *ngFor="let companyOffCount of companyOfficersTotalCount" [value]="companyOffCount">{{companyOffCount}}</option>
-          </select>
+
+
+<div [formGroup]="corporateAccountForm" class="container corporateDetailsContainer">
+    <div formGroupName="corporateAccountDetails">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="accountName">Account Name</label>
+          <input type="text" class="form-control" id="accountName" formControlName="accountName">
+          <span class="help-block" *ngIf="(!corporateAccountForm.get('corporateAccountDetails.accountName').valid && corporateAccountForm.get('corporateAccountDetails.accountName').touched)|| 
+             corporateAccountForm.get('corporateAccountDetails.accountName').pristine">
+            <span *ngIf="corporateAccountForm.get('corporateAccountDetails.accountName').errors['required']">field is
+              required</span>
+          </span>
         </div>
-  </div>
-</div> {{selectedCompanyOfficersCount > 0 }}
-<div *ngIf="selectedCompanyOfficersCount > 0">
-  <ng-container *ngFor="let accounts of updatedCompanyOfficersTotalCount;let i = index">
+        <div class="col-sm-6 form-group">
+          <label for="companyName">Company Name</label>
+          <input type="text" class="form-control" id="companyName" formControlName="companyName">
+          <span class="help-block" *ngIf="(!corporateAccountForm.get('corporateAccountDetails.companyName').valid 
+              && corporateAccountForm.get('corporateAccountDetails.companyName').touched)|| 
+               corporateAccountForm.get('corporateAccountDetails.companyName').pristine">
+            <span *ngIf="corporateAccountForm.get('corporateAccountDetails.companyName').errors['required']">field is
+              required</span>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4  form-group">
+          <label for="abnNo">ABN</label>
+          <input type="text" class="form-control" id="accountName" formControlName="abnNo">
+          <span class="help-block" *ngIf="(!corporateAccountForm.get('corporateAccountDetails.abnNo').valid &&
+               corporateAccountForm.get('corporateAccountDetails.abnNo').touched)|| 
+                corporateAccountForm.get('corporateAccountDetails.abnNo').pristine">
+            <span *ngIf="corporateAccountForm.get('corporateAccountDetails.abnNo').errors['required']">field is
+              required</span>
+          </span>
+        </div>
+        <div class="col-sm-4  form-group">
+          <label for="bankAccountNo">Bank Account Number</label>
+          <input type="number" class="form-control" id="bankAccountNo" formControlName="bankAccountNo">
+          <span class="help-block"
+            *ngIf="corporateAccountForm.get('corporateAccountDetails.bankAccountNo').errors?.invalidBankAccountNumber">Invalid
+            bank Account Number</span>
+          <span class="help-block"
+            *ngIf="corporateAccountForm.get('corporateAccountDetails.bankAccountNo').errors?.required">field is
+            required</span>
+        </div>
+        <div class=" col-sm-4  form-group">
+          <label for="bankAccountBSB">Bank Account BSB</label>
+          <input type="number" class="form-control" id="bankAccountBSB" formControlName="bankAccountBSB">
+          <span class="help-block"
+            *ngIf="corporateAccountForm.get('corporateAccountDetails.bankAccountBSB').errors?.invalidBankAccountBSBNumber">Invalid
+            bank Account BSB</span>
+          <span class="help-block"
+            *ngIf="corporateAccountForm.get('corporateAccountDetails.bankAccountBSB').errors?.required">field is
+            required</span>
+  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label class="control-label" for="companyOfficersCount">Number of company officers</label>
+          <select class="form-control" formControlName="companyOfficersCount" (change)="updateCompanyOfficersCount($event.target.value)">
+            <option *ngFor="let companyOffCount of companyOfficersTotalCount" [value]="companyOffCount">
+              {{companyOffCount}}</option>
+          </select>
+          <span class="help-block" *ngIf="(!corporateAccountForm.get('corporateAccountDetails.companyOfficersCount').valid && corporateAccountForm.get('corporateAccountDetails.accountName').touched)|| 
+              corporateAccountForm.get('corporateAccountDetails.companyOfficersCount').pristine">
+            <span
+              *ngIf="corporateAccountForm.get('corporateAccountDetails.companyOfficersCount').errors['required']">field is
+              required</span>
+          </span>
+        </div>
+  
+      </div>
+    </div>
+  </div> 
+  <!-- <div *ngIf="displayCompanyOfficersDetails()">
+    <ng-container *ngFor="let accounts of updatedCompanyOfficersTotalCount;let i = index">
       <IPS-associated-individuals [index]="i" [selectedAccountType]="companyOfficersType"></IPS-associated-individuals>
-  </ng-container> 
-</div>
+    </ng-container>
+  </div> -->

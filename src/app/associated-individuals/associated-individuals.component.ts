@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'IPS-associated-individuals',
@@ -10,33 +10,38 @@ export class AssociatedIndividualsComponent implements OnInit {
 
   @Input() selectedAccountType: String;
   @Input() index: number;
- // @Input('group') dummyGroup: FormGroup;
-  constructor() { }
+  @Input() ageForm = FormGroup;
 
-  ngOnInit() {
-    console.log("s================",this.selectedAccountType);
-  }
-  titles = [
-    {
-      id: 1,
-      description: 'Mr'
-    },
-    {
-      id: 2,
-      description: 'Mrs'
-    },
-    {
-      id: 3,
-      description: 'Miss'
-    },
-    {
-      id: 4,
-      description: 'Ms'
-    }
-  ]
-  selectedEntry;
+  constructor(private fb: FormBuilder) { }
 
-  onSelectionChange(entry) {
-      this.selectedEntry = entry;
+  ngOnInit() { this.createForm() }
+
+  createForm() {
+  //  const control=new FormControl(null,Validators.required);
+    //  (<FormArray>this.ageForm.get('associatedIndividualsDetails')).push(control);
+   // this.ageForm.addControl("age", new FormControl('', Validators.required));
   }
+  // titles = [
+  //   {
+  //     id: 1,
+  //     description: 'Mr'
+  //   },
+  //   {
+  //     id: 2,
+  //     description: 'Mrs'
+  //   },
+  //   {
+  //     id: 3,
+  //     description: 'Miss'
+  //   },
+  //   {
+  //     id: 4,
+  //     description: 'Ms'
+  //   }
+  // ]
+  // selectedEntry;
+
+  // onSelectionChange(entry) {
+  //     this.selectedEntry = entry;
+  // }
 }

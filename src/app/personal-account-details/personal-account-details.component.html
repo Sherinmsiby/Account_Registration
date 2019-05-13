@@ -1,52 +1,59 @@
-<div class="container personalDetailsContainer">
-  <div class="row">
-    <div class="col-sm-4 form-group">
-      <label for="accountName">Account Name</label>
-      <div>
-        <input name="accountName" id="accountName" type="text" class="form-control" placeholder="" required ngModel>
+<div [formGroup]="personAccountForm" class="container personalDetailsContainer">
+  <div formGroupName="personalAccountDetails">
+    <div class="row">
+      <div class="col-sm-4  form-group">
+        <label for="accountName">Account Name</label>
+        <input type="text" class="form-control" id="accountName" formControlName="accountName">
+        <span class="help-block"
+          *ngIf="(!personAccountForm.get('personalAccountDetails.accountName').valid && personAccountForm.get('personalAccountDetails.accountName').touched)|| 
+            personAccountForm.get('personalAccountDetails.accountName').pristine">
+           <span *ngIf="personAccountForm.get('personalAccountDetails.accountName').errors['required']">field is required</span>
+        </span>
       </div>
+      <div class="col-sm-4  form-group">
+          <label for="accountHolderFirstName">Account Holder First Name</label>
+          <input type="text" class="form-control" id="accountHolderFirstName" formControlName="accountHolderFirstName">
+          <span class="help-block"
+            *ngIf="(!personAccountForm.get('personalAccountDetails.accountHolderFirstName').valid && 
+               personAccountForm.get('personalAccountDetails.accountHolderFirstName').touched)|| 
+              personAccountForm.get('personalAccountDetails.accountHolderFirstName').pristine">
+             <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderFirstName').errors['required']">field is required</span>
+          </span>
+        </div>
+        <div class=" col-sm-4  form-group">
+            <label for="accountHolderLastName">Account Holder Last Name</label>
+            <input type="text" class="form-control" id="accountHolderLastName" formControlName="accountHolderLastName">
+            <span class="help-block"
+              *ngIf="(!personAccountForm.get('personalAccountDetails.accountHolderLastName').valid && 
+                 personAccountForm.get('personalAccountDetails.accountHolderLastName').touched)|| 
+                personAccountForm.get('personalAccountDetails.accountHolderLastName').pristine">
+               <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderLastName').errors['required']">field is required</span>
+            </span>
+          </div>
     </div>
-    <div class="col-sm-4 form-group">
-      <label for="account-holder-first-name">Account Holder First Name</label>
-      <div>
-        <input name="account-holder-first-name" id="account-holder-first-name" type="text" class="form-control"
-          placeholder="" required ngModel>
+    <div class="row">
+        <div class="col-sm-4  form-group">
+          <label for="tfnNo">TFN</label>
+          <input type="text" class="form-control" id="tfnNo" formControlName="tfnNo">
+          <span class="help-block"
+            *ngIf="(!personAccountForm.get('personalAccountDetails.tfnNo').valid && personAccountForm.get('personalAccountDetails.tfnNo').touched)|| 
+              personAccountForm.get('personalAccountDetails.tfnNo').pristine">
+             <span *ngIf="personAccountForm.get('personalAccountDetails.tfnNo').errors['required']">field is required</span>
+          </span>
+        </div>
+        <div class="col-sm-4  form-group">
+            <label for="bankAccountNo">Bank Account Number</label>
+            <input type="number" class="form-control" id="bankAccountNo" formControlName="bankAccountNo">
+            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountNo').errors?.invalidBankAccountNumber">Invalid bank Account Number</span>
+            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountNo').errors?.required">field is required</span>
+          </div>
+          <div class=" col-sm-4  form-group">
+              <label for="bankAccountBSB">Bank Account BSB</label>
+              <input type="number" class="form-control" id="bankAccountBSB" formControlName="bankAccountBSB">
+              <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountBSB').errors?.invalidBankAccountBSBNumber">Invalid bank Account BSB</span>
+            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountBSB').errors?.required">field is required</span>
+          
+            </div>
       </div>
-    </div>
-    <div class="col-sm-4 form-group">
-      <label for="account-holder-last-name">Account Holder Last Name</label>
-      <div>
-        <input name="account-holder-last-name" id="account-holder-last-name" type="text" class="form-control"
-          placeholder="" required ngModel>
-      </div>
-    </div>
-
-  </div>
-  <div class="row">
-    <div class="col-sm-4 form-group">
-      <label for="tfnNo">TFN</label>
-      <div>
-        <input name="tfnNo" id="tfnNo" type="text" class="form-control" placeholder="" required ngModel>
-      </div>
-    </div>
-    <div class="col-sm-4 form-group">
-      <label for="bankAccountNo">Bank Account Number</label>
-      <div>
-        <input name="bankAccountNo" id="bankAccountNo" [(ngModel)]="sbankAccountNo" #bankAccountNo="ngModel"
-          type="number" class="form-control" minlength="3" maxlength="8" placeholder="" required>{{bankAccountNo}}
-      </div>
-      <div *ngIf="bankAccountNo.errors">
-          <div *ngIf="bankAccountNo.errors.minlength">
-              Too short
-          </div> 
-      </div>
-    </div>
-    <div class="col-sm-4 form-group">
-      <label for="bankAccountBSB">Bank Account BSB</label>
-      <div>
-        <input name="bankAccountBSB" id="bankAccountBSB" type="text" class="form-control" placeholder="" required
-          ngModel>
-      </div>
-    </div>
   </div>
 </div>

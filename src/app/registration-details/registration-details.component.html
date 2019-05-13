@@ -1,36 +1,83 @@
-<div class="container">
-  <form (ngSubmit)="onSubmit()" #RegistrationForm="ngForm">
-    <div class="row">
-      <div class="col-sm-6 form-group">
-         <label class="control-label" [ngClass]="{'required': accountType.errors?.required}" for="accountType">Account Type</label>
-        <select class="form-control" id="accountType" required   [(ngModel)]="selectedAccountType" name="accountType"
-          #accountType="ngModel">
-          <option *ngFor="let accType of accountTypes" [value]="accType">{{accType}}</option>
-        </select>
-        <!-- <div *ngIf="accountType.errors?.required"> 
-            Name required. 
-        </div> -->
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <!-- <div formGroupName="userData">
+    <div class="form-group">
+      <label for="username">UserName</label>
+      <input type="text" class="form-control" id="username" formControlName="username">
+      <span class="help-block"
+        *ngIf="!registrationForm.get('userData.username').valid&&registrationForm.get('userData.username').touched">
+        <span *ngIf="registrationForm.get('userData.username').errors['nameIsForbidden']">name is invalid</span>
+        <span *ngIf="registrationForm.get('userData.username').errors['required']">field is required</span>
+      </span>
+    </div>
+
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email">
+
+      <span class="help-block"
+        *ngIf="!registrationForm.get('userData.email').valid && registrationForm.get('userData.email').touched">
+        please enter a valid email id
+      </span>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class=" col-sm-6 form-group">
+      <label class="control-label" [ngClass]="{'required': registrationForm.get('accountType').pristine}"
+        for="accountType">Account Type</label>
+      <select class="form-control" formControlName="accountType">
+        <option *ngFor="let accountType of accountTypes" [value]="accountType">{{accountType}}</option>
+      </select>
+    </div>
+    <div class="col-sm-6  form-group">
+      <label class="control-label" for="individualCount"
+        [ngClass]="{'required': registrationForm.get('individualCount').pristine}">Number of Individuals</label>
+      <select class="form-control" formControlName="individualCount" (change)="updateIndividualCount($event.target.value)">
+        <option *ngFor="let individualCount of individualsCount" [value]="individualCount">{{individualCount}}</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="displayAssociatedIndividuals()" >
+      <!-- <IPS-associated-individuals [ageForm]="registrationForm"></IPS-associated-individuals> -->{{registrationForm.get('availableAssociatedAccounts')}}
+       <ng-container class="form-group" *ngFor="let accounts of registrationForm.get('availableAssociatedAccounts');let i = index">
+          <IPS-associated-individuals [ageForm]="registrationForm"   [index]="i" [selectedAccountType]="selectedAccountType"></IPS-associated-individuals>
+      </ng-container> 
+  </div>
+
+  <div *ngIf="displayPersonalAccountDetails()"> {{selectedindividualCount}}
+      <IPS-personal-account-details [personAccountForm]="registrationForm"></IPS-personal-account-details>
+    </div>
+    <div *ngIf="displayCorporateAccountDetails()"> {{selectedindividualCount}}
+        <IPS-corporate-account-details [corporateAccountForm]="registrationForm"></IPS-corporate-account-details>
       </div>
-      <div class="col-sm-6 form-group"> 
-        <label  class="control-label" for="individualCount" [ngClass]="{'required': individualCount.errors?.required}">Number of Individuals</label>
-        <select class="form-control" id="individualCount" (ngModelChange)="updateIndividualCountChange($event)" required [(ngModel)]="selectedindividualCount"
-         name="individualCount"
-          #individualCount="ngModel">
-          <option *ngFor="let indCount of individualsCount" [value]="indCount">{{indCount}}</option>
-        </select>
-      </div>
+
+
+
+
+
+
+
+  <div class="radio" *ngFor="let gender of genders">
+    <label>
+      <input type="radio" [value]="gender" formControlName="gender">{{gender}}
+    </label>
+  </div>
+
+  <!-- <div formArrayName="hobbies">
+    <h4>Hobbies</h4>
+    <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
+{{registrationForm.get('hobbies').controls}}
+    <div class="form-group" *ngFor="let hobbyControl of registrationForm.get('hobbies').controls; let i=index">
+      <input type="text" class="form-control" [formControlName]="i">
     </div>
-    <div *ngIf="displayAssociatedIndividuals()">
-        <ng-container *ngFor="let accounts of availableAssociatedAccounts;let i = index">
-            <IPS-associated-individuals   [index]="i" [selectedAccountType]="selectedAccountType"></IPS-associated-individuals>
-        </ng-container>      
-    </div>
-    <div *ngIf="selectedAccountType === accountTypes[0] && selectedindividualCount > 0"> {{selectedindividualCount}}
-      <IPS-personal-account-details></IPS-personal-account-details>
-    </div>
-    <div *ngIf="selectedAccountType === accountTypes[1] && selectedindividualCount >0">
-      <IPS-corporate-account-details></IPS-corporate-account-details>
-    </div>
-  </form>
-  <pre>{{RegistrationForm.value | json}}</pre>
-</div>
+  </div> -->
+
+  <span class="help-block" *ngIf="!registrationForm.valid && registrationForm.touched">
+    please enter valid data
+  </span>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+{{registrationForm.value | json}}
+{{registrationForm.valid}}

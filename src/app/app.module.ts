@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { RegistrationDetailsComponent } from './registration-details/registratio
 import { AssociatedIndividualsComponent } from './associated-individuals/associated-individuals.component';
 import { PersonalAccountDetailsComponent } from './personal-account-details/personal-account-details.component';
 import { CorporateAccountDetailsComponent } from './corporate-account-details/corporate-account-details.component';
+import { DateFormatPipePipe } from './date-format-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,14 @@ import { CorporateAccountDetailsComponent } from './corporate-account-details/co
     RegistrationDetailsComponent,
     
     PersonalAccountDetailsComponent,
-    CorporateAccountDetailsComponent
+    CorporateAccountDetailsComponent,
+    DateFormatPipePipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

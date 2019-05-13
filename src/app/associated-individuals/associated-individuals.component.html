@@ -1,6 +1,19 @@
-<div class="container" [ngClass]="{'companyOfficersContainer': selectedAccountType === 'companyOfficers'}">
-  <div class="row">
-    <!-- RADIO BUTTONS -->
+
+
+<div [formGroup]="ageForm">
+    Age:  <input type="text" class="form-control" [formControlName]="i">
+</div>
+
+
+
+<!-- <div class="container" [ngClass]="{'companyOfficersContainer': selectedAccountType === 'companyOfficers'}"> 
+ 
+ <label for="email" [formGroup]="ageForm">
+   Email:
+   <input type="email" id="email" name="email" [formControlName]="'email'">
+ </label> -->
+ 
+  <!-- <div class="row">
     <div class="form-group">
         <span *ngFor="let title of titles; let j=index;" [ngClass]="{'titleContainer': selectedAccountType === 'companyOfficers'}">           
             <span>
@@ -30,7 +43,10 @@
     <div *ngIf="selectedAccountType !== 'companyOfficers'" class="col-sm-4 form-group">
       <label for="{{selectedAccountType}}_dob_{{index}}">Date Of Birth</label>
       <div>
-        <input name="{{selectedAccountType}}_dob_{{index}}" id="{{selectedAccountType}}_dob_{{index}}" type="date" class="form-control" placeholder="Date Of Birth" required ngModel></div>
+        <input name="{{selectedAccountType}}_dob_{{index}}" id="{{selectedAccountType}}_dob_{{index}}" type="date" 
+        class="form-control" dateFormatPipe placeholder="dd/mm/yyyy" >
+      
+      </div>
     </div>
-  </div>
-</div>
+  </div> 
+</div>-->
