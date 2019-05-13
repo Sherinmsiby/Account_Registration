@@ -1,6 +1,3 @@
-
-
-
 <div [formGroup]="corporateAccountForm" class="container corporateDetailsContainer">
     <div formGroupName="corporateAccountDetails">
       <div class="row">
@@ -75,8 +72,12 @@
       </div>
     </div>
   </div> 
-  <!-- <div *ngIf="displayCompanyOfficersDetails()">
-    <ng-container *ngFor="let accounts of updatedCompanyOfficersTotalCount;let i = index">
-      <IPS-associated-individuals [index]="i" [selectedAccountType]="companyOfficersType"></IPS-associated-individuals>
+  <div *ngIf="displayCompanyOfficersDetails()">
+      <ng-container *ngFor="let detail of completeData;let i = index">
+      <IPS-associated-individuals [form]="corporateAccountForm" [selectedAccountType]="project-officers"
+      [detail]="detail" [detailIndex]="i" *ngIf="i<selectedCompanyOfficersCount"></IPS-associated-individuals>
     </ng-container>
-  </div> -->
+      <!-- <ng-container *ngFor="let accounts of updatedCompanyOfficersTotalCount;let i = index">
+        <IPS-associated-individuals [index]="i" [selectedAccountType]="companyOfficersType"></IPS-associated-individuals>
+      </ng-container> -->
+    </div> 

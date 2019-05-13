@@ -8,7 +8,9 @@ export class DateFormatPipePipe implements PipeTransform {
 
   transform(value: string) {
     var datePipe = new DatePipe("en-US");
-     value = datePipe.transform(value, 'dd/MM/yyyy');
+    console.log("value",value)
+     //value = datePipe.transform(value, 'dd/MM/yyyy');
+     value =datePipe.transform(value, 'yyyy-MM-dd');
      return value;
  }
 

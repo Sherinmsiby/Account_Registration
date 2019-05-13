@@ -1,52 +1,46 @@
-
-
-<div [formGroup]="ageForm">
-    Age:  <input type="text" class="form-control" [formControlName]="i">
+<div [formGroup]="form">
+    <div class="car-wrap" [formArrayName]="formArrayName">
+        <div  [formGroupName]="detailIndex">           
+            <div formGroupName="details">
+                <div class="row">
+                    <div class="form-group radioElements">
+                      <span class="radio" *ngFor="let title of titles"
+                        [ngClass]="{'titleContainer': selectedAccountType === 'companyOfficers'}">
+                        <label>
+                          <input type="radio" [value]="title" formControlName="title">
+                          <span class="title-radio-label">{{title.description}}</span>
+                        </label>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-4  form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                        <!-- <span class="help-block" *ngIf="(!associatedIndividualForm.get('details.firstName').valid &&
+                             associatedIndividualForm.get('details.firstName').touched)|| 
+                              associatedIndividualForm.get('details.firstName').pristine">
+                          <span *ngIf="associatedIndividualForm.get('details.firstName').errors['required']">field is
+                            required</span>
+                        </span> -->
+                      </div>
+                      <div class="col-sm-4  form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                        <!-- <span class="help-block"
+                          *ngIf="associatedIndividualForm.get('details.lastName').errors?.required">field is
+                          required</span> -->
+                      </div>
+                      <div class=" col-sm-4  form-group">
+                        <label for="dob">Date Of Birth</label>
+                        <input type="date" class="form-control" id="dob" formControlName="dob">
+                        <!-- <span class="help-block"
+                          *ngIf="associatedIndividualForm.get('details.dob').errors?.required">field is
+                          required</span> -->
+                
+                      </div>
+                    </div>
+            </div>          
+        </div>
+    </div>
 </div>
-
-
-
-<!-- <div class="container" [ngClass]="{'companyOfficersContainer': selectedAccountType === 'companyOfficers'}"> 
- 
- <label for="email" [formGroup]="ageForm">
-   Email:
-   <input type="email" id="email" name="email" [formControlName]="'email'">
- </label> -->
- 
-  <!-- <div class="row">
-    <div class="form-group">
-        <span *ngFor="let title of titles; let j=index;" [ngClass]="{'titleContainer': selectedAccountType === 'companyOfficers'}">           
-            <span>
-                <input type="radio" name="{{selectedAccountType}}_radiogroup_{{index}}_j" 
-                    [checked]="idx === 0" 
-                    [value]="title.id" 
-                    (change)="onSelectionChange(title)">
-            </span>
-            <span class="title-radio-label">{{ title.description }}</span>
-        </span>
-    </div>
-
-  </div>
-  <div class="row">
-    <div [ngClass]="selectedAccountType === 'companyOfficers' ? 'col-sm-6' : 'col-sm-4'" class="form-group">
-      <label for="{{selectedAccountType}}_firstName_{{index}}">First Name</label>
-      <div>
-        <input name="{{selectedAccountType}}_firstName_{{index}}" id="{{selectedAccountType}}_firstName_{{index}}" type="text" class="form-control" placeholder="First Name" required ngModel>
-      </div>
-    </div>
-    <div [ngClass]="selectedAccountType === 'companyOfficers'? 'col-sm-6' : 'col-sm-4'" class="form-group">
-      <label for="{{selectedAccountType}}_lastName_{{index}}">Last Name</label>
-      <div>
-        <input name="{{selectedAccountType}}_lastName_{{index}}" id="{{selectedAccountType}}_lastName_{{index}}" type="text" class="form-control" placeholder="Last Name" required ngModel>
-      </div>
-    </div>
-    <div *ngIf="selectedAccountType !== 'companyOfficers'" class="col-sm-4 form-group">
-      <label for="{{selectedAccountType}}_dob_{{index}}">Date Of Birth</label>
-      <div>
-        <input name="{{selectedAccountType}}_dob_{{index}}" id="{{selectedAccountType}}_dob_{{index}}" type="date" 
-        class="form-control" dateFormatPipe placeholder="dd/mm/yyyy" >
-      
-      </div>
-    </div>
-  </div> 
-</div>-->

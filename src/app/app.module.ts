@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { RegistrationDetailsComponent } from './registration-details/registration-details.component';
 import { AssociatedIndividualsComponent } from './associated-individuals/associated-individuals.component';
 import { PersonalAccountDetailsComponent } from './personal-account-details/personal-account-details.component';
-import { CorporateAccountDetailsComponent } from './corporate-account-details/corporate-account-details.component';
 import { DateFormatPipePipe } from './date-format-pipe.pipe';
+import { CorporateAccountsDetailsComponent } from './corporate-accounts-details/corporate-accounts-details.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +17,8 @@ import { DateFormatPipePipe } from './date-format-pipe.pipe';
     RegistrationDetailsComponent,
     
     PersonalAccountDetailsComponent,
-    CorporateAccountDetailsComponent,
-    DateFormatPipePipe
+    DateFormatPipePipe,
+    CorporateAccountsDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,40 +1,43 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'IPS-corporate-account-details',
-  templateUrl: './corporate-account-details.component.html',
-  styleUrls: ['./corporate-account-details.component.scss']
+  selector: 'IPS-corporate-accounts-details',
+  templateUrl: './corporate-accounts-details.component.html',
+  styleUrls: ['./corporate-accounts-details.component.scss']
 })
-export class CorporateAccountDetailsComponent implements OnInit {
+export class CorporateAccountsDetailsComponent implements OnInit {
+
+  constructor() { }
+
 
   companyOfficersTotalCount: [];
   updatedCompanyOfficersTotalCount: [];
   companyOfficersType: string = "companyOfficers";
   @Input()
   corporateAccountForm = FormGroup;
+  @Input() completeData:any;
   selectedCompanyOfficersCount: number;
 
-
-  constructor() { }
 
   ngOnInit() {
     this.companyOfficersTotalCount = this.updateCompanyOfficersDetails(6);
   }
   displayCompanyOfficersDetails() {
 
-    return this.selectedCompanyOfficersCount > 0
+      return this.selectedCompanyOfficersCount > 0
   }
   updateCompanyOfficersDetails(selectedindividualCount) {
 
     return Array.apply(null, { length: selectedindividualCount }).map(function (value, index) {
       return index + 1;
     });
+    console.log(this.companyOfficersTotalCount);
   }
-  updateCompanyOfficersCount(officerCount: number) {
-
-    this.selectedCompanyOfficersCount = officerCount;
-    this.updatedCompanyOfficersTotalCount = this.updateCompanyOfficersDetails(officerCount);
+  updateCompanyOfficersCount(count) {
+   
+    this.selectedCompanyOfficersCount = count;
+    this.updatedCompanyOfficersTotalCount = this.updateCompanyOfficersDetails(count);
     console.log("updatedCompanyOfficersTotalCount", this.updatedCompanyOfficersTotalCount);
   }
 }
