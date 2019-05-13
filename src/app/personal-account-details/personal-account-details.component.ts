@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'IPS-personal-account-details',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalAccountDetailsComponent implements OnInit {
 
+  model:any={};
+  @Input() accountType: string
   constructor() { }
 
   ngOnInit() {
+    console.log(this.accountType)  ;
   }
 
 }

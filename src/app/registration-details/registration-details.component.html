@@ -21,8 +21,8 @@
       </div>
     </div>
     <div *ngIf="displayAssociatedIndividuals()">
-        <ng-container *ngFor="let accounts of availableAssociatedAccounts">
-            <IPS-associated-individuals></IPS-associated-individuals>
+        <ng-container *ngFor="let accounts of availableAssociatedAccounts;let i = index">
+            <IPS-associated-individuals   [index]="i" [selectedAccountType]="selectedAccountType"></IPS-associated-individuals>
         </ng-container>      
     </div>
     <div *ngIf="selectedAccountType === accountTypes[0] && selectedindividualCount > 0"> {{selectedindividualCount}}
@@ -32,5 +32,5 @@
       <IPS-corporate-account-details></IPS-corporate-account-details>
     </div>
   </form>
-  
+  <pre>{{RegistrationForm.value | json}}</pre>
 </div>

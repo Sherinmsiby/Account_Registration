@@ -37,12 +37,17 @@
   </div>
   <div class="row">
       <div class="col-sm-12 form-group"> 
-          <label  class="control-label" for="individualCount" [ngClass]="{'required': individualCount.errors?.required}">Number of Individuals</label>
-          <select class="form-control" id="individualCount" (ngModelChange)="updateIndividualCountChange($event)" required [(ngModel)]="selectedindividualCount"
-           name="individualCount"
-            #individualCount="ngModel">
-            <option *ngFor="let indCount of individualsCount" [value]="indCount">{{indCount}}</option>
+          <label  class="control-label" for="companyOfficersCount">Number of Individuals</label>
+          <select class="form-control" id="companyOfficersCount" (ngModelChange)="updateCompanyOfficersCountChange($event)" required [(ngModel)]="selectedCompanyOfficersCount"
+           name="companyOfficersCount"
+            #companyOfficersCount="ngModel">
+            <option *ngFor="let companyOffCount of companyOfficersTotalCount" [value]="companyOffCount">{{companyOffCount}}</option>
           </select>
         </div>
   </div>
+</div> {{selectedCompanyOfficersCount > 0 }}
+<div *ngIf="selectedCompanyOfficersCount > 0">
+  <ng-container *ngFor="let accounts of updatedCompanyOfficersTotalCount;let i = index">
+      <IPS-associated-individuals [index]="i" [selectedAccountType]="companyOfficersType"></IPS-associated-individuals>
+  </ng-container> 
 </div>

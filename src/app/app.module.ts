@@ -12,8 +12,9 @@ import { CorporateAccountDetailsComponent } from './corporate-account-details/co
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationDetailsComponent,
     AssociatedIndividualsComponent,
+    RegistrationDetailsComponent,
+    
     PersonalAccountDetailsComponent,
     CorporateAccountDetailsComponent
   ],

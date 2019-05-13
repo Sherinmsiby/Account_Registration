@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'IPS-associated-individuals',
@@ -7,12 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AssociatedIndividualsComponent implements OnInit {
 
-  @Input() accounts: String;
-
+  @Input() selectedAccountType: String;
+  @Input() index: number;
+ // @Input('group') dummyGroup: FormGroup;
   constructor() { }
 
   ngOnInit() {
-    console.log(this.accounts);
+    console.log("s================",this.selectedAccountType);
   }
   titles = [
     {

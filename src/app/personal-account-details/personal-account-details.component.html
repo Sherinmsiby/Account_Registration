@@ -1,43 +1,52 @@
 <div class="container personalDetailsContainer">
-    <div class="row">
-        <div class="col-sm-4 form-group">
-        <label for="accountName">Account Name</label>
-        <div>
-          <input name="accountName" id="accountName" type="text" class="form-control" placeholder="" required ngModel>
-        </div>
+  <div class="row">
+    <div class="col-sm-4 form-group">
+      <label for="accountName">Account Name</label>
+      <div>
+        <input name="accountName" id="accountName" type="text" class="form-control" placeholder="" required ngModel>
       </div>
-      <div class="col-sm-4 form-group">
-          <label for="account-holder-first-name">Account Holder First Name</label>
-          <div>
-            <input name="account-holder-first-name" id="account-holder-first-name" type="text" class="form-control" placeholder="" required ngModel>
-          </div>
-        </div>
-        <div class="col-sm-4 form-group">
-            <label for="account-holder-last-name">Account Holder Last Name</label>
-            <div>
-              <input name="account-holder-last-name" id="account-holder-last-name" type="text" class="form-control" placeholder="" required ngModel>
-            </div>
-          </div>
-      
     </div>
-    <div class="row">
-        <div class="col-sm-4 form-group">
-            <label for="tfnNo">TFN</label>
-            <div>
-              <input name="tfnNo" id="tfnNo" type="text" class="form-control" placeholder="" required ngModel>
-            </div>
-          </div>
-          <div class="col-sm-4 form-group">
-              <label for="bankAccountNo">Bank Account Number</label>
-              <div>
-                <input name="bankAccountNo" id="bankAccountNo" type="text" class="form-control" placeholder="" required ngModel>
-              </div>
-            </div>
-            <div class="col-sm-4 form-group">
-                <label for="bankAccountBSB">Bank Account BSB</label>
-                <div>
-                  <input name="bankAccountBSB" id="bankAccountBSB" type="text" class="form-control" placeholder="" required ngModel>
-                </div>
-              </div>
+    <div class="col-sm-4 form-group">
+      <label for="account-holder-first-name">Account Holder First Name</label>
+      <div>
+        <input name="account-holder-first-name" id="account-holder-first-name" type="text" class="form-control"
+          placeholder="" required ngModel>
       </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="account-holder-last-name">Account Holder Last Name</label>
+      <div>
+        <input name="account-holder-last-name" id="account-holder-last-name" type="text" class="form-control"
+          placeholder="" required ngModel>
+      </div>
+    </div>
+
   </div>
+  <div class="row">
+    <div class="col-sm-4 form-group">
+      <label for="tfnNo">TFN</label>
+      <div>
+        <input name="tfnNo" id="tfnNo" type="text" class="form-control" placeholder="" required ngModel>
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="bankAccountNo">Bank Account Number</label>
+      <div>
+        <input name="bankAccountNo" id="bankAccountNo" [(ngModel)]="sbankAccountNo" #bankAccountNo="ngModel"
+          type="number" class="form-control" minlength="3" maxlength="8" placeholder="" required>{{bankAccountNo}}
+      </div>
+      <div *ngIf="bankAccountNo.errors">
+          <div *ngIf="bankAccountNo.errors.minlength">
+              Too short
+          </div> 
+      </div>
+    </div>
+    <div class="col-sm-4 form-group">
+      <label for="bankAccountBSB">Bank Account BSB</label>
+      <div>
+        <input name="bankAccountBSB" id="bankAccountBSB" type="text" class="form-control" placeholder="" required
+          ngModel>
+      </div>
+    </div>
+  </div>
+</div>
