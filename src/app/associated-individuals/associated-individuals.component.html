@@ -1,46 +1,33 @@
-<div [formGroup]="form">
-    <div class="car-wrap" [formArrayName]="formArrayName">
-        <div  [formGroupName]="detailIndex">           
-            <div formGroupName="details">
-                <div class="row">
-                    <div class="form-group radioElements">
-                      <span class="radio" *ngFor="let title of titles"
-                        [ngClass]="{'titleContainer': selectedAccountType === 'companyOfficers'}">
-                        <label>
-                          <input type="radio" [value]="title" formControlName="title">
-                          <span class="title-radio-label">{{title.description}}</span>
-                        </label>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-4  form-group">
-                        <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" formControlName="firstName">
-                        <!-- <span class="help-block" *ngIf="(!associatedIndividualForm.get('details.firstName').valid &&
-                             associatedIndividualForm.get('details.firstName').touched)|| 
-                              associatedIndividualForm.get('details.firstName').pristine">
-                          <span *ngIf="associatedIndividualForm.get('details.firstName').errors['required']">field is
-                            required</span>
-                        </span> -->
-                      </div>
-                      <div class="col-sm-4  form-group">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" formControlName="lastName">
-                        <!-- <span class="help-block"
-                          *ngIf="associatedIndividualForm.get('details.lastName').errors?.required">field is
-                          required</span> -->
-                      </div>
-                      <div class=" col-sm-4  form-group">
-                        <label for="dob">Date Of Birth</label>
-                        <input type="date" class="form-control" id="dob" formControlName="dob">
-                        <!-- <span class="help-block"
-                          *ngIf="associatedIndividualForm.get('details.dob').errors?.required">field is
-                          required</span> -->
-                
-                      </div>
-                    </div>
-            </div>          
+<div [formGroup]="form"  [ngClass]="{'companyOfficersContainer': selectedAccountType === 'companyOfficer'}"> 
+  <div class="car-wrap" [formArrayName]="formArrayName">
+    <div [formGroupName]="detailIndex">
+      <div formGroupName="details">
+        <div class="row">
+          <div class="form-group titleRadioContainer">
+            <span class="radio" *ngFor="let title of titles"
+              [ngClass]="{'titleContainer': selectedAccountType === 'companyOfficer'}">
+              <label>
+                <input type="radio" [value]="title" formControlName="title" required>
+                <span class="title-radio-label">{{title.description}}</span>
+              </label>
+            </span>
+          </div>
         </div>
+        <div class="row">
+          <div class="form-group" [ngClass]="hideForCompanyOfficers() ? 'col-sm-4' : 'col-sm-6'">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+          </div>
+          <div class="col-sm-4  form-group" [ngClass]="hideForCompanyOfficers() ? 'col-sm-4' : 'col-sm-6'">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+          </div>
+          <div class="col-sm-4  form-group" *ngIf="hideForCompanyOfficers()"> 
+            <label for="dob">Date Of Birth</label>
+            <input type="date" class="form-control" id="dob" formControlName="dob">
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

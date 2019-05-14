@@ -8,6 +8,8 @@
 {
     background-color: #6c757d;
     padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
     padding-bottom: 15px;
     margin-bottom: 25px;
     color: #ffff;
@@ -16,11 +18,11 @@
 
 .titleContainer
 {
-    display: block;
+    display: block !important;
     padding-left: 15px;
 
 }
-.radioElements
+.titleRadioContainer
 {
     padding-left: 15px;
 }

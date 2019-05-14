@@ -7,7 +7,7 @@
         <span class="help-block"
           *ngIf="(!personAccountForm.get('personalAccountDetails.accountName').valid && personAccountForm.get('personalAccountDetails.accountName').touched)|| 
             personAccountForm.get('personalAccountDetails.accountName').pristine">
-           <span *ngIf="personAccountForm.get('personalAccountDetails.accountName').errors['required']">field is required</span>
+           <span *ngIf="personAccountForm.get('personalAccountDetails.accountName').errors['required']">*</span>
         </span>
       </div>
       <div class="col-sm-4  form-group">
@@ -17,7 +17,7 @@
             *ngIf="(!personAccountForm.get('personalAccountDetails.accountHolderFirstName').valid && 
                personAccountForm.get('personalAccountDetails.accountHolderFirstName').touched)|| 
               personAccountForm.get('personalAccountDetails.accountHolderFirstName').pristine">
-             <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderFirstName').errors['required']">field is required</span>
+             <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderFirstName').errors['required']">*</span>
           </span>
         </div>
         <div class=" col-sm-4  form-group">
@@ -27,7 +27,7 @@
               *ngIf="(!personAccountForm.get('personalAccountDetails.accountHolderLastName').valid && 
                  personAccountForm.get('personalAccountDetails.accountHolderLastName').touched)|| 
                 personAccountForm.get('personalAccountDetails.accountHolderLastName').pristine">
-               <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderLastName').errors['required']">field is required</span>
+               <span *ngIf="personAccountForm.get('personalAccountDetails.accountHolderLastName').errors['required']">*</span>
             </span>
           </div>
     </div>
@@ -38,20 +38,20 @@
           <span class="help-block"
             *ngIf="(!personAccountForm.get('personalAccountDetails.tfnNo').valid && personAccountForm.get('personalAccountDetails.tfnNo').touched)|| 
               personAccountForm.get('personalAccountDetails.tfnNo').pristine">
-             <span *ngIf="personAccountForm.get('personalAccountDetails.tfnNo').errors['required']">field is required</span>
+             <span *ngIf="personAccountForm.get('personalAccountDetails.tfnNo').errors['required']">*</span>
           </span>
         </div>
         <div class="col-sm-4  form-group">
             <label for="bankAccountNo">Bank Account Number</label>
             <input type="number" class="form-control" id="bankAccountNo" formControlName="bankAccountNo">
             <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountNo').errors?.invalidBankAccountNumber">Invalid bank Account Number</span>
-            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountNo').errors?.required">field is required</span>
+            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountNo').errors?.required">*</span>
           </div>
           <div class=" col-sm-4  form-group">
               <label for="bankAccountBSB">Bank Account BSB</label>
               <input type="number" class="form-control" id="bankAccountBSB" formControlName="bankAccountBSB">
               <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountBSB').errors?.invalidBankAccountBSBNumber">Invalid bank Account BSB</span>
-            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountBSB').errors?.required">field is required</span>
+            <span class="help-block" *ngIf="personAccountForm.get('personalAccountDetails.bankAccountBSB').errors?.required">*</span>
           
             </div>
       </div>

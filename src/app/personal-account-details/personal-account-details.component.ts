@@ -14,7 +14,6 @@ export class PersonalAccountDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.accountType)  ;
   }
 
 }

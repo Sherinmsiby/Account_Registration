@@ -1,44 +1,51 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="registrationForm" novalidate (ngSubmit)="save(registrationForm)">
   <div class="row">
     <div class=" col-sm-6 form-group">
       <label class="control-label" [ngClass]="{'required': registrationForm.get('accountType').pristine}"
         for="accountType">Account Type</label>
-      <select class="form-control" formControlName="accountType">
+      <select class="form-control" formControlName="accountType" (change)="updateSelectType($event.target.value)">
         <option *ngFor="let accountType of accountTypes" [value]="accountType">{{accountType}}</option>
       </select>
     </div>
     <div class="col-sm-6  form-group">
       <label class="control-label" for="individualCount"
         [ngClass]="{'required': registrationForm.get('individualCount').pristine}">Number of Individuals</label>
-      <select class="form-control" formControlName="individualCount" (change)="updateIndividualCount($event.target.value)">
+      <select class="form-control" formControlName="individualCount"
+        (change)="updateIndividualCount($event.target.value)">
         <option *ngFor="let individualCount of individualsCount" [value]="individualCount">{{individualCount}}</option>
       </select>
     </div>
   </div>
 
-  <input type="date" formControlName="effectiveEndDate" style="display:none">
-   <span *ngIf="registrationForm.get('effectiveEndDate').errors?.inValidAge">field is
-      required</span> 
+  <span  class="help-block dateError" *ngIf="dateErrorArray.length > 0">Age entered is less than 18 years. Please correct the date.</span>
 
-      <div *ngIf="displayAssociatedIndividuals()" >
-          <div *ngFor="let detail of details; let i = index;">
-              <IPS-associated-individuals [form]="registrationForm" [selectedAccountType]="registrationForm.get('accountType').value"
-                 [detail]="detail" [detailIndex]="i"  *ngIf="i<selectedAssociateCount"></IPS-associated-individuals>
-          </div>
-        </div>
-  <div *ngIf="displayPersonalAccountDetails()"> 
-      <IPS-personal-account-details [personAccountForm]="registrationForm"></IPS-personal-account-details>
+   <div *ngIf="displayAssociatedIndividuals() && displayPersonalAccountDetails()"> 
+    <div *ngFor="let detail of details; let i = index;">
+      <IPS-associated-individuals [form]="registrationForm"
+        [selectedAccountType]="'Personal'" [detail]="detail" [detailIndex]="i"
+        *ngIf="i<selectedAssociateCount"></IPS-associated-individuals>
     </div>
-    <div *ngIf="displayCorporateAccountDetails()"> 
-      <IPS-corporate-accounts-details [completeData]="details"  [corporateAccountForm]="registrationForm"></IPS-corporate-accounts-details>
+  </div> 
+  <div *ngIf="displayAssociatedIndividuals() && displayCorporateAccountDetails()">
+      <div *ngFor="let detail of details; let i = index;">
+        <IPS-associated-individuals [form]="registrationForm"
+          [selectedAccountType]="'Corporate'" [detail]="detail" [detailIndex]="i"
+          *ngIf="i<selectedAssociateCount"></IPS-associated-individuals>
       </div>
-
-  <span class="help-block" *ngIf="!registrationForm.valid && registrationForm.touched">
-    please enter valid data
-  </span>
-
+    </div>
+  <div *ngIf="displayPersonalAccountDetails()">
+    <IPS-personal-account-details [personAccountForm]="registrationForm"></IPS-personal-account-details>
+  </div>
+  <div *ngIf="displayCorporateAccountDetails()">
+    <IPS-corporate-accounts-details [completeData]="details" [corporateAccountForm]="registrationForm">
+    </IPS-corporate-accounts-details>
+  </div>
+  {{registrationForm.dirty}} --{{registrationForm.valid}}
+  <div class="alert alert-danger" *ngIf="!registrationForm.valid || registrationForm.dirty">
+    Please enter valid data
+  </div>
   <button class="btn btn-primary" type="submit">Submit</button>
 </form>
-
+<!-- 
 {{registrationForm.value |json}}
-{{registrationForm.valid}}
+{{!registrationForm.valid && registrationForm.touched}} -->

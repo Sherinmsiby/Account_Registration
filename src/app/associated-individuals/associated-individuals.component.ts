@@ -14,7 +14,7 @@ export class AssociatedIndividualsComponent implements OnInit {
 
   formArrayName: String;
   ngOnInit() {
-    console.log(this.selectedAccountType);
+   
     if (this.selectedAccountType === 'Corporate') {
       this.formArrayName = 'associatedIndividualDetailsCorporate';
     }else if (this.selectedAccountType === 'Personal') {
@@ -23,7 +23,11 @@ export class AssociatedIndividualsComponent implements OnInit {
       this.formArrayName = 'projectOfficersDetails';
     }
   }
-
+  hideForCompanyOfficers()
+  {
+   
+    return this.selectedAccountType !== "companyOfficer";
+  }
 
   titles = [
     {

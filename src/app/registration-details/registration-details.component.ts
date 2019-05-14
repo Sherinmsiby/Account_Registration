@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as moment from 'moment'
-import { DatePipe } from '@angular/common';
+
 
 @Component({
     selector: 'IPS-registration-details',
@@ -10,51 +10,64 @@ import { DatePipe } from '@angular/common';
     styleUrls: ['./registration-details.component.scss']
 })
 export class RegistrationDetailsComponent implements OnInit {
-    accountDetailsData;
+    accountDetailsData: any;
     registrationForm: FormGroup;
-    selectedAssociateCount;
+    selectedAssociateCount: any;
     availableAssociatedAccounts: [];
     accountTypes = ['Personal', 'Corporate'];
     individualsCount = [1, 2, 3, 4, 5, 6];
-    formsArr = [];
+    dateErrorArray = [];
     constructor(private fb: FormBuilder) { }
-    individualAssociateData=[{'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }},
-    {'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }},
-    {'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }},
-    {'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }},
-    {'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }},
-    {'details': {
-        'title': '',
-        'firstName': '',
-        'lastName': '',
-        'dob': ''
-    }}
-];
+    formSubscriber: any;
+    individualAssociateData = [{
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    },
+    {
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    },
+    {
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    },
+    {
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    },
+    {
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    },
+    {
+        'details': {
+            'title': '',
+            'firstName': '',
+            'lastName': '',
+            'dob': ''
+        }
+    }
+    ];
     details = [
         {
             'title': '',
@@ -110,13 +123,9 @@ export class RegistrationDetailsComponent implements OnInit {
         return new FormGroup({
             associatedIndividualDetailsCorporate: new FormArray(details.map((detail) => this.createDetail(details))),
             associatedIndividualDetailsPersonal: new FormArray(details.map((detail) => this.createDetail(details))),
-            projectOfficersDetails:new FormArray(details.map((detail) => this.createDetail(details))),
-            effectiveEndDate: new FormControl([Validators.required, this.bankAccountValidator.bind(this)]),
+            projectOfficersDetails: new FormArray(details.map((detail) => this.createDetail(details))),
             accountType: new FormControl([Validators.required]),
-            individualCount: new FormControl(null, [Validators.required]),
-            gender: new FormControl(),
-            hobbies: new FormArray([]),
-            age: new FormControl([Validators.required])
+            individualCount: new FormControl(null, [Validators.required])
             , personalAccountDetails: new FormGroup({
                 accountName: new FormControl(null, [Validators.required]),
                 accountHolderFirstName: new FormControl(null, [Validators.required]),
@@ -134,12 +143,6 @@ export class RegistrationDetailsComponent implements OnInit {
                 bankAccountBSB: new FormControl(null, [Validators.required, this.bankAccountBSBValidator.bind(this)]),
                 companyOfficersCount: new FormControl(null, [Validators.required])
 
-            }),
-            associatedIndividualDetails: new FormGroup({
-                title: new FormControl(null, [Validators.required]),
-                firstName: new FormControl(null, [Validators.required]),
-                lastName: new FormControl(null, [Validators.required]),
-                dob: new FormControl(null, [Validators.required]),
             })
         });
     }
@@ -147,19 +150,9 @@ export class RegistrationDetailsComponent implements OnInit {
     ngOnInit() {
         this.registrationForm = this.setUpForm(this.details);
         this.registrationForm.setValue({
-            'effectiveEndDate': '',
-            'age': '',
             'accountType': '',
             'individualCount': '',
-            'associatedIndividualDetails': {
-                'title': '',
-                'firstName': '',
-                'lastName': '',
-                'dob': ''
-            },
             'associatedIndividualDetailsPersonal': this.individualAssociateData,
-            'gender': 'female',
-            'hobbies': [],
             'personalAccountDetails':
             {
                 'accountName': '',
@@ -183,32 +176,56 @@ export class RegistrationDetailsComponent implements OnInit {
 
             'associatedIndividualDetailsCorporate': this.individualAssociateData,
             'projectOfficersDetails': this.individualAssociateData,
-            })
-        //this.registrationForm.addControl('cars',this.setUpForm(this.cars));
-        //this.registrationForm.patchValue({'cars':this.cars});
+        })
+        this.onChanges();
     }
 
-    onSubmit() {
-        console.log(this.registrationForm);
-        this.compareTwoDates();
-    }
-    compareTwoDates() {
-        let DateEntered = moment(new Date(this.registrationForm.controls['effectiveEndDate'].value)).format("DD.MM.YYYY");
-        var birthday = moment(DateEntered, "DD.MM.YYYY"),
-            age = moment().diff(birthday, 'years');
 
-        console.log(age); // output: 18; expected: == 18
-        if (age >= 18) {
-            let error = { isError: true, errorMessage: 'BIG' };
-            console.log("error", error);
-
-        } else {
-            let error = { isError: true, errorMessage: 'SMALL' };
-            console.log("error", error);
-            if (this.registrationForm.get('effectiveEndDate').errors) {
-                this.registrationForm.get('effectiveEndDate').errors.push({ 'inValidAge': true });
+    save(form: FormGroup) {
+        console.log(this.findInvalidControls() );
+      }
+    
+      findInvalidControls() {
+        const invalid = [];
+        const controls = this.registrationForm.controls;
+        for (const name in controls) {
+            if (controls[name].invalid && controls[name].dirty) {
+                invalid.push(name);
             }
+        }
+        return invalid;
+    }
+    onChanges(): void {
+        this.formSubscriber = this.registrationForm.valueChanges.subscribe(value => {
+            this.dateErrorArray = [];
+            value['associatedIndividualDetailsCorporate'].forEach(item => {
+                if (item.details.dob) {
+                    this.dateErrorArray.push(this.ageValidator(item.details.dob));
+                }
 
+            });
+            value['associatedIndividualDetailsPersonal'].forEach(item => {
+                if (item.details.dob) {
+                    this.dateErrorArray.push(this.ageValidator(item.details.dob));
+                }
+
+            });
+            this.dateErrorArray = this.dateErrorArray.filter(Boolean);
+        });
+
+    }
+    ngOnDestroy() {
+        this.formSubscriber.unsubscribe();
+    }
+ 
+    ageValidator(changedValue) {
+        let dateEntered = moment(new Date(changedValue)).format("DD.MM.YYYY");
+        let modifiedDate = moment(dateEntered, "DD.MM.YYYY"),
+            age = moment().diff(modifiedDate, 'years');
+        if (age >= 18) {
+            return null;
+        } else {
+            return { 'inValidAge': true };
         }
     }
 
@@ -242,13 +259,11 @@ export class RegistrationDetailsComponent implements OnInit {
 
 
     displayAssociatedIndividuals() {
-
-        console.log(this.registrationForm.value.accountType !== "" && this.registrationForm.value.individualCount !== "");
         return this.registrationForm.value.accountType !== "" && this.registrationForm.value.individualCount !== "";
     }
     updateIndividualCount(count) {
-           this.selectedAssociateCount =count;
-           this.availableAssociatedAccounts = this.updateAssociatedIndividualDetails(count);
+        this.selectedAssociateCount = count;
+        this.availableAssociatedAccounts = this.updateAssociatedIndividualDetails(count);
     }
     updateAssociatedIndividualDetails(selectedindividualCount) {
 
@@ -262,6 +277,9 @@ export class RegistrationDetailsComponent implements OnInit {
     displayCorporateAccountDetails() {
         return this.registrationForm.value.accountType === this.accountTypes[1] && this.registrationForm.value.individualCount > 0;
     }
-
+    updateSelectType(value)
+    {
+        this.dateErrorArray=[];
+    }
 
 }
