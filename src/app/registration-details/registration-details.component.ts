@@ -182,19 +182,25 @@ export class RegistrationDetailsComponent implements OnInit {
 
 
     save(form: FormGroup) {
-        console.log(this.findInvalidControls() );
+        console.log(this.findInvalidControlsRecursive(this.registrationForm) );
       }
     
-      findInvalidControls() {
-        const invalid = [];
-        const controls = this.registrationForm.controls;
-        for (const name in controls) {
-            if (controls[name].invalid && controls[name].dirty) {
-                invalid.push(name);
-            }
+     findInvalidControlsRecursive(formToInvestigate:FormGroup|FormArray):string[] {
+        var invalidControls:string[] = [];
+        let recursiveFunc = (form:FormGroup|FormArray) => {
+          Object.keys(form.controls).forEach(field => { 
+            const control = form.get(field);
+            if (control.invalid) invalidControls.push(field);
+            if (control instanceof FormGroup) {
+              recursiveFunc(control);
+            } else if (control instanceof FormArray) {
+              recursiveFunc(control);
+            }        
+          });
         }
-        return invalid;
-    }
+        recursiveFunc(formToInvestigate);
+        return invalidControls;
+      }
     onChanges(): void {
         this.formSubscriber = this.registrationForm.valueChanges.subscribe(value => {
             this.dateErrorArray = [];

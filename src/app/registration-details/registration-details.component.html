@@ -40,12 +40,8 @@
     <IPS-corporate-accounts-details [completeData]="details" [corporateAccountForm]="registrationForm">
     </IPS-corporate-accounts-details>
   </div>
-  {{registrationForm.dirty}} --{{registrationForm.valid}}
-  <div class="alert alert-danger" *ngIf="!registrationForm.valid || registrationForm.dirty">
-    Please enter valid data
+   <div  *ngIf="!registrationForm.valid &&  registrationForm.dirty">
+    Please enter All the fields
   </div>
   <button class="btn btn-primary" type="submit">Submit</button>
 </form>
-<!-- 
-{{registrationForm.value |json}}
-{{!registrationForm.valid && registrationForm.touched}} -->
