@@ -183,6 +183,8 @@ export class RegistrationDetailsComponent implements OnInit {
 
     save(form: FormGroup) {
         console.log(this.findInvalidControlsRecursive(this.registrationForm) );
+        //alert("Form Successfully Submitted");
+        //this.registrationForm.reset();
       }
     
      findInvalidControlsRecursive(formToInvestigate:FormGroup|FormArray):string[] {
